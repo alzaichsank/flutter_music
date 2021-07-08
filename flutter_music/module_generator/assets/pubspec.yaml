@@ -1,0 +1,20 @@
+name: assets
+description: assets generator.
+version: 1.0.0
+author: pahlevikun
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  args: '>=0.12.1 <2.0.0'
+  dart_style: ^1.0.0
+  path: '>=0.9.0 <2.0.0'
+  yaml: ^2.1.15
+  recase: ^2.0.1
+  build: ^1.1.4
+  build_config: ^0.4.0
+
+dev_dependencies:
+  lint: ^1.0.0

@@ -1,0 +1,53 @@
+name: manifest
+description: Manifest module.
+version: 1.0.0
+author: pahlevikun
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  assets:
+    path: ../../module_generator/assets
+
+builders:
+  assets:
+    path: ../../module_generator/assets
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  assets:
+    path: ../../module_generator/assets
+  language:
+    path: ../../module_generator/language
+
+flutter:
+  uses-material-design: true
+  assets:
+    - ../../resources/images/
+    - ../../resources/langs/en.json
+    - ../../resources/langs/ar.json
+
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: ../../resources/fonts/Gilroy-Black.otf
+        - asset: ../../resources/fonts/Gilroy-BlackItalic.otf
+        - asset: ../../resources/fonts/Gilroy-Bold.otf
+        - asset: ../../resources/fonts/Gilroy-BoldItalic.otf
+        - asset: ../../resources/fonts/Gilroy-Extrabold.otf
+        - asset: ../../resources/fonts/Gilroy-Heavy.otf
+        - asset: ../../resources/fonts/Gilroy-HeavyItalic.otf
+        - asset: ../../resources/fonts/Gilroy-Light.otf
+        - asset: ../../resources/fonts/Gilroy-Medium.otf
+        - asset: ../../resources/fonts/Gilroy-Regular.otf
+        - asset: ../../resources/fonts/Gilroy-SemiBold.otf
+        - asset: ../../resources/fonts/Gilroy-Thin.otf
+        - asset: ../../resources/fonts/Gilroy-UltraLight.otf
+
+assets_generator:
+  custom_package: "manifest"

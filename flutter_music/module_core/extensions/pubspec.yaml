@@ -1,0 +1,19 @@
+name: extensions
+description: Extensions module.
+version: 1.0.0
+author: pahlevikun
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  manifest:
+    path: ../manifest
+  pedantic: ^1.9.0
+  intl: ^0.16.1
+  fluttertoast: ^7.1.6
+
+flutter:

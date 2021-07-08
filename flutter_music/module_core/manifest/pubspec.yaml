@@ -22,15 +22,11 @@ dev_dependencies:
     sdk: flutter
   assets:
     path: ../../module_generator/assets
-  language:
-    path: ../../module_generator/language
 
 flutter:
   uses-material-design: true
   assets:
     - ../../resources/images/
-    - ../../resources/langs/en.json
-    - ../../resources/langs/ar.json
 
   fonts:
     - family: Gilroy

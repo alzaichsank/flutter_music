@@ -19,7 +19,6 @@ export 'src/localization/app_tran_deligate.dart' show AppTranslationsDelegate;
 export 'src/localization/app_translation.dart'
     show AppTranslations, AppTranslationsExt;
 export 'src/localization/application.dart' show Application;
-export 'src/map/map_utils.dart' show MapUtils;
 export 'src/model/pair.dart' show Pair;
 export 'src/publisher/app_theme_notifier.dart' show AppThemeNotifier;
 export 'src/publisher/global_eventbus.dart' show RxBus;

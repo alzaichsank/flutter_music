@@ -1,28 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_response.dart';
+part of 'search_music.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) {
-  return SearchResponse(
-    data: (json['results'] as List<dynamic>?)
-        ?.map((e) => SearchData.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    totalResults: json['resultCount'] as num?,
-  );
-}
-
-Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
-    <String, dynamic>{
-      'results': instance.data,
-      'resultCount': instance.totalResults,
-    };
-
-SearchData _$SearchDataFromJson(Map<String, dynamic> json) {
-  return SearchData(
+SearchMusic _$SearchMusicFromJson(Map<String, dynamic> json) {
+  return SearchMusic(
     idArtist: json['artistId'] as num?,
     idCollection: json['collectionId'] as num?,
     artistName: json['artistName'] as String?,
@@ -33,7 +18,7 @@ SearchData _$SearchDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$SearchDataToJson(SearchData instance) =>
+Map<String, dynamic> _$SearchMusicToJson(SearchMusic instance) =>
     <String, dynamic>{
       'artistId': instance.idArtist,
       'collectionId': instance.idCollection,

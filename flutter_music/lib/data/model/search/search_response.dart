@@ -7,7 +7,7 @@ class SearchResponse {
   @JsonKey(name: "results", nullable: true)
   List<SearchData>? data;
   @JsonKey(name: "resultCount", nullable: true)
-  int? totalResults;
+  num? totalResults;
 
   SearchResponse({this.data, this.totalResults});
 
@@ -20,9 +20,9 @@ class SearchResponse {
 @JsonSerializable()
 class SearchData {
   @JsonKey(name: "artistId")
-  int? idArtist;
+  num? idArtist;
   @JsonKey(name: "collectionId")
-  int? idCollection;
+  num? idCollection;
   @JsonKey(name: "artistName")
   String? artistName;
   @JsonKey(name: "artworkUrl60")

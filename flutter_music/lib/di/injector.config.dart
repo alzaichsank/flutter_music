@@ -12,15 +12,18 @@ import 'package:utilities/utilities.dart' as _i3;
 
 import '../data/network_repository.dart' as _i11;
 import '../data/rest_api_service.dart' as _i10;
+import '../domain/mapper/search_mapper.dart' as _i14;
+import '../domain/usecase/search_usecase.dart' as _i13;
+import '../presentation/main/bloc/main_bloc.dart' as _i12;
 import '../presentation/splash/bloc/splash_bloc.dart' as _i5;
 import 'depedencies/app_route_registry.dart' as _i6;
 import 'depedencies/dio_logger.dart' as _i8;
 import 'depedencies/navigation_dispatcher.dart' as _i9;
-import 'modul/application_modules.dart' as _i12;
-import 'modul/env_modules.dart' as _i14;
-import 'modul/network_modules.dart' as _i13;
+import 'modul/application_modules.dart' as _i15;
+import 'modul/env_modules.dart' as _i17;
+import 'modul/network_modules.dart' as _i16;
 import 'modul/repository_module.dart'
-    as _i15; // ignore_for_file: unnecessary_lambdas
+    as _i18; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -58,19 +61,23 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => networkModule.provideApiService(get<_i7.Dio>()));
   gh.lazySingleton<_i11.NetworkRepository>(() =>
       repositoryModule.provideNetworkRepository(get<_i10.RestApiService>()));
+  gh.factory<_i12.MainBloc>(() => _i12.MainBloc(get<_i13.SearchUseCase>()));
   gh.singleton<_i8.DioLogger>(networkModule.provideDioLogger());
+  gh.singleton<_i14.SearchMapper>(_i14.SearchMapper());
   gh.singleton<_i7.BaseOptions>(networkModule.provideDioBaseOptions(
       get<String>(instanceName: 'base_url'),
       get<Map<String, String>>(instanceName: 'headers'),
       get<int>(instanceName: 'connect_time_out'),
       get<int>(instanceName: 'read_time_out')));
+  gh.singleton<_i13.SearchUseCase>(_i13.SearchUseCase(
+      get<_i11.NetworkRepository>(), get<_i14.SearchMapper>()));
   return get;
 }
 
-class _$ApplicationModules extends _i12.ApplicationModules {}
+class _$ApplicationModules extends _i15.ApplicationModules {}
 
-class _$NetworkModule extends _i13.NetworkModule {}
+class _$NetworkModule extends _i16.NetworkModule {}
 
-class _$EnvModules extends _i14.EnvModules {}
+class _$EnvModules extends _i17.EnvModules {}
 
-class _$RepositoryModule extends _i15.RepositoryModule {}
+class _$RepositoryModule extends _i18.RepositoryModule {}

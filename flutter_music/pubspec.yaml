@@ -47,7 +47,6 @@ dependencies:
   connectivity: ^3.0.6
   fluttertoast: ^8.0.7
 
-
   #  Local Modules
   manifest:
     path: ./module_core/manifest

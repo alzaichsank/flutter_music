@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_music/presentation/main/main.dart';
 import 'package:flutter_music/presentation/splash/splash.dart';
 
 class AppRouteRegistry {
@@ -24,7 +25,7 @@ class AppRouteRegistry {
   _initInternal() {
     router.define(InternalRoute.MAIN, handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-      return SplashPage();
+      return MainPage();
     }));
   }
 //endregion

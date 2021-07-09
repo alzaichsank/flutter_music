@@ -9,12 +9,12 @@ class MainState extends Equatable {
 
   final SearchBlocState state;
   final PlayerBlocState statePlayer;
-  final List<ItemType> data;
+  final List<SearchData> data;
 
   MainState copyWith({
     SearchBlocState? state,
     PlayerBlocState? statePlayer,
-    List<ItemType>? data,
+    List<SearchData>? data,
   }) {
     return MainState(
       state: state ?? this.state,

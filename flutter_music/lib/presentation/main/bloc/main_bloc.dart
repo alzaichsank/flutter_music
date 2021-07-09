@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_music/data/handler/network_exception.dart';
-import 'package:flutter_music/domain/base_item_type.dart';
-import 'package:flutter_music/domain/entity/search_music.dart';
-import 'package:flutter_music/domain/usecase/search_usecase.dart';
+import 'package:flutter_music/data/model/search_data.dart';
+import 'package:flutter_music/usecase/search_music_usecase.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../main.dart';
 
@@ -17,12 +16,20 @@ part 'main_state.dart';
 @Injectable()
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc(
-    this._searchUseCase,
+    this.searchMusicUseCase,
   ) : super(const MainState());
 
-  final SearchUseCase _searchUseCase;
-  final List<ItemType> _events = [];
+  final SearchMusicUseCase searchMusicUseCase;
+  final List<SearchData> _events = [];
   String keyword = "";
+
+  @override
+  Stream<Transition<MainEvent, MainState>> transformEvents(
+      Stream<MainEvent> events, transitionFn) {
+    return events
+        .debounceTime(const Duration(milliseconds: 1000))
+        .switchMap((transitionFn));
+  }
 
   @override
   Stream<MainState> mapEventToState(
@@ -32,8 +39,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       yield state.copyWith(state: SearchBlocState.pureSearch());
     } else if (event is MainQueryChanged) {
       keyword = event.query;
-    } else if (event is MainSubmitted) {
-      keyword = event.query;
       _events.clear();
       yield* _mapEventToMainEvent();
     } else {
@@ -42,11 +47,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   }
 
   Stream<MainState> _mapEventToMainEvent() async* {
-    MainState _onSucceed(List<SearchMusic> data) {
-      _events.removeWhere((element) => element is SearchMusicsLoading);
-      _events.addAll(data);
+    MainState _onSucceed(List<SearchData> data) {
+      this._events.addAll(data);
+      print("cek response succes ${_events.length}");
       if (_events.isEmpty) {
-        return state.copyWith(state: SearchBlocState.emptyContent());
+        return state.copyWith(state: SearchBlocState.noInternetError());
       } else {
         return state.copyWith(
           state: SearchBlocState.updateMusic(),
@@ -55,23 +60,20 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       }
     }
 
-    MainState _onFailed(NetworkException error) {
-      _events.removeWhere((element) => element is SearchMusicsLoading);
-      if (error is NoInternetConnection && _events.isEmpty) {
-        return state.copyWith(state: SearchBlocState.noInternetError());
-      } else {
-        return state.copyWith(state: SearchBlocState.failedLoadMusic());
-      }
+    MainState _onFailed(String error) {
+      return state.copyWith(state: SearchBlocState.failedLoadMusic());
     }
 
     yield state.copyWith(state: SearchBlocState.showMusicLoading());
-    final response = await _searchUseCase.execute(keyword);
-    yield* response.when(
-      success: (List<SearchMusic> data) async* {
+    print("cek response before lood ${state.state}");
+    final result = await searchMusicUseCase.execute(keyword);
+
+    yield* result.when(
+      success: (List<SearchData> data) async* {
         yield _onSucceed(data);
       },
-      failure: (NetworkException error) async* {
-        yield _onFailed(error);
+      failure: (String message) async* {
+        yield _onFailed(message);
       },
     );
   }

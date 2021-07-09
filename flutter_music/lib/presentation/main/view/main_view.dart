@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music/domain/base_item_type.dart';
-import 'package:flutter_music/domain/entity/search_music.dart';
+import 'package:flutter_music/data/model/search_data.dart';
 import 'package:flutter_music/presentation/common/view/background/background_stack.dart';
 import 'package:flutter_music/presentation/common/view/loading.dart';
 import 'package:flutter_music/presentation/common/widget/text_field.dart';
@@ -34,7 +33,10 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<MainBloc, MainState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state.state is UpdateMusic) {;
+        }
+      },
       child: BackgroundStack(
         toolbar: _MainToolbar(),
         regularBuilder: RegularBackgroundBuilder(

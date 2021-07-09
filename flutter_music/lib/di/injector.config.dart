@@ -4,26 +4,19 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:dio/dio.dart' as _i7;
 import 'package:fluro/fluro.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:utilities/utilities.dart' as _i3;
 
-import '../data/network_repository.dart' as _i11;
-import '../data/rest_api_service.dart' as _i10;
-import '../domain/mapper/search_mapper.dart' as _i14;
-import '../domain/usecase/search_usecase.dart' as _i13;
-import '../presentation/main/bloc/main_bloc.dart' as _i12;
+import '../data/repository/search_music_repository.dart' as _i10;
+import '../usecase/search_music_usecase.dart' as _i8;
+import '../presentation/main/bloc/main_bloc.dart' as _i7;
 import '../presentation/splash/bloc/splash_bloc.dart' as _i5;
 import 'depedencies/app_route_registry.dart' as _i6;
-import 'depedencies/dio_logger.dart' as _i8;
 import 'depedencies/navigation_dispatcher.dart' as _i9;
-import 'modul/application_modules.dart' as _i15;
-import 'modul/env_modules.dart' as _i17;
-import 'modul/network_modules.dart' as _i16;
-import 'modul/repository_module.dart'
-    as _i18; // ignore_for_file: unnecessary_lambdas
+import 'modul/application_modules.dart' as _i11;
+import 'modul/env_modules.dart' as _i12; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -31,53 +24,26 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final applicationModules = _$ApplicationModules();
-  final networkModule = _$NetworkModule();
   final envModules = _$EnvModules();
-  final repositoryModule = _$RepositoryModule();
   gh.lazySingleton<_i3.ConnectionChecker>(
       () => applicationModules.provideConnectionChecker());
   gh.lazySingleton<_i4.FluroRouter>(
       () => applicationModules.provideFluroRouter());
-  gh.factory<Map<String, String>>(() => networkModule.provideHeaders(),
-      instanceName: 'headers');
   gh.lazySingleton<_i3.PermissionHelper>(
       () => applicationModules.providePermissionHelper());
   gh.factory<_i5.SplashBloc>(() => _i5.SplashBloc());
   gh.factory<String>(() => envModules.baseUrl, instanceName: 'base_url');
   gh.factory<bool>(() => envModules.buildMode, instanceName: 'build_mode');
-  gh.factory<int>(() => networkModule.readTimeOut,
-      instanceName: 'read_time_out');
-  gh.factory<int>(() => networkModule.connectTimeOut,
-      instanceName: 'connect_time_out');
   gh.lazySingleton<_i6.AppRouteRegistry>(
       () => applicationModules.provideInternalRouter(get<_i4.FluroRouter>()));
-  gh.lazySingleton<_i7.Dio>(() => networkModule.provideDio(
-      get<_i7.BaseOptions>(),
-      get<bool>(instanceName: 'build_mode'),
-      get<_i8.DioLogger>()));
+  gh.factory<_i7.MainBloc>(() => _i7.MainBloc(get<_i8.SearchMusicUseCase>()));
   gh.lazySingleton<_i9.NavigationDispatcher>(() => applicationModules
       .provideNavigationDispatcher(get<_i6.AppRouteRegistry>()));
-  gh.factory<_i10.RestApiService>(
-      () => networkModule.provideApiService(get<_i7.Dio>()));
-  gh.lazySingleton<_i11.NetworkRepository>(() =>
-      repositoryModule.provideNetworkRepository(get<_i10.RestApiService>()));
-  gh.factory<_i12.MainBloc>(() => _i12.MainBloc(get<_i13.SearchUseCase>()));
-  gh.singleton<_i8.DioLogger>(networkModule.provideDioLogger());
-  gh.singleton<_i14.SearchMapper>(_i14.SearchMapper());
-  gh.singleton<_i7.BaseOptions>(networkModule.provideDioBaseOptions(
-      get<String>(instanceName: 'base_url'),
-      get<Map<String, String>>(instanceName: 'headers'),
-      get<int>(instanceName: 'connect_time_out'),
-      get<int>(instanceName: 'read_time_out')));
-  gh.singleton<_i13.SearchUseCase>(_i13.SearchUseCase(
-      get<_i11.NetworkRepository>(), get<_i14.SearchMapper>()));
+  gh.singleton<_i10.SearchMusicRepository>(_i10.SearchMusicRepository());
+  gh.singleton<_i8.SearchMusicUseCase>(_i8.SearchMusicUseCase());
   return get;
 }
 
-class _$ApplicationModules extends _i15.ApplicationModules {}
+class _$ApplicationModules extends _i11.ApplicationModules {}
 
-class _$NetworkModule extends _i16.NetworkModule {}
-
-class _$EnvModules extends _i17.EnvModules {}
-
-class _$RepositoryModule extends _i18.RepositoryModule {}
+class _$EnvModules extends _i12.EnvModules {}

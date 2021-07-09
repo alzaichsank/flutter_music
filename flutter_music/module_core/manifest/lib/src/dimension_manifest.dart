@@ -200,6 +200,7 @@ class DimensionsManifest {
   static const double UNIT_129 = 129;
   static const double UNIT_130 = 130;
   static const double UNIT_145 = 145;
+  static const double UNIT_150 = 150;
   static const double UNIT_250 = 250;
 //endregion
 }

@@ -20,15 +20,6 @@ class MainQueryChanged extends MainEvent {
   List<Object> get props => [query];
 }
 
-class MainSubmitted extends MainEvent {
-  const MainSubmitted(this.query);
-
-  final String query;
-
-  @override
-  List<Object> get props => [query];
-}
-
 class MainPlayMusic extends MainEvent {
   const MainPlayMusic(this.position);
 

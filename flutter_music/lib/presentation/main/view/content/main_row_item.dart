@@ -1,14 +1,14 @@
 part of '../main_view.dart';
 
 Widget _buildBodyItem(
-  List<ItemType> searchMovie,
+  List<SearchData> searchMusic,
   int index,
   BuildContext context,
   MainState state,
 ) {
-  final item = searchMovie[index];
-  if (item is SearchMusic) {
-    return _buildItemRow(context, state, index, searchMovie);
+  final item = searchMusic[index];
+  if (item is SearchData) {
+    return _buildItemRow(context, state, index, searchMusic);
   } else {
     return _buildLoadingRow();
   }
@@ -26,9 +26,9 @@ Widget _buildItemRow(
   BuildContext context,
   MainState state,
   int index,
-  List<ItemType> activities,
+  List<SearchData> activities,
 ) {
-  final item = activities[index] as SearchMusic;
+  final item = activities[index] as SearchData;
   return Container(
     padding: EdgeInsets.only(
       right: DimensionsManifest.UNIT_2.blockW,
@@ -44,7 +44,7 @@ Widget _buildItemRow(
       borderRadius: ShapeStylesManifest.RADIUS_CIRCULAR_25_ALL,
       child: Container(
         width: double.infinity,
-        height: DimensionsManifest.UNIT_30.h,
+        height: DimensionsManifest.UNIT_15.h,
         child: Material(
           color: HexColor.toColor(ColorManifest.WHITE_COLOR),
           child: InkWell(
@@ -64,13 +64,13 @@ Widget _buildItemRow(
 }
 
 Container _buildImage(
-  SearchMusic item,
+  SearchData item,
   BuildContext contextParent,
   MainState state,
 ) {
   return Container(
     margin: EdgeInsets.only(
-        left: DimensionsManifest.UNIT_24, top: DimensionsManifest.UNIT_30),
+        left: DimensionsManifest.UNIT_24),
     height: DimensionsManifest.UNIT_15.h,
     child: AspectRatio(
       aspectRatio: 1 / 1,
@@ -89,11 +89,11 @@ LayoutBuilder _buildImagePreview(String image) {
       return ClipRRect(
         borderRadius: ShapeStylesManifest.RADIUS_CIRCULAR_16,
         child: Container(
-          width: DimensionsManifest.UNIT_90,
-          height: DimensionsManifest.UNIT_90,
+          width: DimensionsManifest.UNIT_150,
+          height: DimensionsManifest.UNIT_150,
           child: Container(
-            width: 60,
-            height: 60,
+            width: DimensionsManifest.UNIT_150,
+            height: DimensionsManifest.UNIT_150,
             child: image != null ? Image.network(image) : null,
           ),
         ),
@@ -102,7 +102,7 @@ LayoutBuilder _buildImagePreview(String image) {
   );
 }
 
-Widget _buildDetail(SearchMusic item) {
+Widget _buildDetail(SearchData item) {
   Text _buildTitle() {
     return Text(
       item.songTitle ?? "-",
@@ -111,19 +111,19 @@ Widget _buildDetail(SearchMusic item) {
       overflow: TextOverflow.ellipsis,
       style: TextStylesManifest.textFormFieldSemiBold.copyWith(
           color: HexColor.toColor(ColorManifest.HEADER_TEXT_COLOR),
-          fontSize: DimensionsManifest.FONT_REGULAR_7),
+          fontSize: DimensionsManifest.FONT_REGULAR_6),
     );
   }
 
   Text _buildArtistName() {
     return Text(
-      item.albumName ?? "-",
+      item.artistName ?? "-",
       maxLines: 1,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
       style: TextStylesManifest.textFormFieldSemiBold.copyWith(
           color: HexColor.toColor(ColorManifest.BODY_TEXT_COLOR),
-          fontSize: DimensionsManifest.FONT_REGULAR_8),
+          fontSize: DimensionsManifest.FONT_REGULAR_7),
     );
   }
 
@@ -133,19 +133,19 @@ Widget _buildDetail(SearchMusic item) {
       maxLines: 1,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
-      style: TextStylesManifest.textFormFieldSemiBold.copyWith(
+      style: TextStylesManifest.textFormFieldRegular.copyWith(
           color: HexColor.toColor(ColorManifest.BODY_TEXT_COLOR),
           fontSize: DimensionsManifest.FONT_REGULAR_8),
     );
   }
 
   return Container(
-    margin: EdgeInsets.only(top: DimensionsManifest.UNIT_30),
+    margin: EdgeInsets.only(top: DimensionsManifest.UNIT_10),
     padding: EdgeInsets.only(
       left: DimensionsManifest.UNIT_16,
     ),
     width: double.infinity,
-    height: DimensionsManifest.UNIT_25.h,
+    height: DimensionsManifest.UNIT_15.h,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

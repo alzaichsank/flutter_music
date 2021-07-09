@@ -21,8 +21,6 @@ class _MainToolbar extends StatelessWidget {
                 type: FormTextFieldType.SEARCH,
                 onChanged: (String value) =>
                     context.read<MainBloc>().add(MainQueryChanged(value)),
-                onSubmitted: (String value) =>
-                    context.read<MainBloc>().add(MainSubmitted(value)),
                 showError: false,
                 hintText: "Search ...",
                 textInputAction: TextInputAction.search,

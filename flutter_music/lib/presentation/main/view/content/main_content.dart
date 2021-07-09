@@ -8,7 +8,6 @@ class _MainBody extends StatefulWidget {
 }
 
 class _MainBodyState extends State<_MainBody> {
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainBloc, MainState>(
@@ -29,8 +28,9 @@ class _MainBodyState extends State<_MainBody> {
       return _buildNoInternetState();
     } else if (state.state is EmptyContent) {
       return _buildNegativeState();
-    } else if (state.state is UpdateMusic ) {
-      final movie = state.data;
+    } else if (state.state is UpdateMusic) {
+      final music = state.data;
+      print("cek response music data ${music}");
       return _buildPositiveState(
         totalWidth,
         totalHeight,
@@ -38,10 +38,34 @@ class _MainBodyState extends State<_MainBody> {
         context,
         buttonWidth,
         buttonHeight,
-        movie,
+        music,
       );
     } else if (state.state is PureSearch) {
-      return Container();
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(ImageAssets.splash), fit: BoxFit.fill),
+              ),
+            ),
+            SizedBox(height: DimensionsManifest.UNIT_2.blockH),
+            Text(
+              "Search the music",
+              textAlign: TextAlign.left,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStylesManifest.textFormFieldSemiBold.copyWith(
+                  color: HexColor.toColor(ColorManifest.HEADER_TEXT_COLOR),
+                  fontSize: DimensionsManifest.FONT_REGULAR_5),
+            )
+          ],
+        ),
+      );
     } else {
       return _buildLoadingState(
         totalWidth,
@@ -66,7 +90,7 @@ class _MainBodyState extends State<_MainBody> {
     BuildContext context,
     double buttonWidth,
     double buttonHeight,
-    List<ItemType> categories,
+    List<SearchData> music,
   ) {
     return _paddingTop(
       child: Container(
@@ -75,7 +99,7 @@ class _MainBodyState extends State<_MainBody> {
         child: ScrollConfiguration(
           behavior: HideableGlowBehavior(),
           child: SingleChildScrollView(
-            child: _buildBody(state, categories),
+            child: _buildBody(state, music),
           ),
         ),
       ),
@@ -129,15 +153,15 @@ class _MainBodyState extends State<_MainBody> {
     );
   }
 
-  Widget _buildBody(MainState state, List<ItemType> movie) {
+  Widget _buildBody(MainState state, List<SearchData> music) {
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: movie == null ? 0 : movie.length,
+      itemCount: music == null ? 0 : music.length,
       itemBuilder: (BuildContext context, int index) {
-        return _buildBodyItem(movie, index, context, state);
+        return _buildBodyItem(music, index, context, state);
       },
     );
   }

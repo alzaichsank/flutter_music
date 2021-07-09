@@ -22,7 +22,7 @@ class _$ApiResultTearOff {
     );
   }
 
-  Failure<T> failure<T>(NetworkException error) {
+  Failure<T> failure<T>(String error) {
     return Failure<T>(
       error,
     );
@@ -37,13 +37,13 @@ mixin _$ApiResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkException error) failure,
+    required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkException error)? failure,
+    TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -149,7 +149,7 @@ class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkException error) failure,
+    required TResult Function(String error) failure,
   }) {
     return success(data);
   }
@@ -158,7 +158,7 @@ class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkException error)? failure,
+    TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -203,9 +203,7 @@ abstract class Success<T> implements ApiResult<T> {
 abstract class $FailureCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) then) =
       _$FailureCopyWithImpl<T, $Res>;
-  $Res call({NetworkException error});
-
-  $NetworkExceptionCopyWith<$Res> get error;
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -225,15 +223,8 @@ class _$FailureCopyWithImpl<T, $Res> extends _$ApiResultCopyWithImpl<T, $Res>
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as NetworkException,
+              as String,
     ));
-  }
-
-  @override
-  $NetworkExceptionCopyWith<$Res> get error {
-    return $NetworkExceptionCopyWith<$Res>(_value.error, (value) {
-      return _then(_value.copyWith(error: value));
-    });
   }
 }
 
@@ -243,7 +234,7 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
   const _$Failure(this.error);
 
   @override
-  final NetworkException error;
+  final String error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -279,7 +270,7 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkException error) failure,
+    required TResult Function(String error) failure,
   }) {
     return failure(error);
   }
@@ -288,7 +279,7 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkException error)? failure,
+    TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -321,9 +312,9 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
 }
 
 abstract class Failure<T> implements ApiResult<T> {
-  const factory Failure(NetworkException error) = _$Failure<T>;
+  const factory Failure(String error) = _$Failure<T>;
 
-  NetworkException get error => throw _privateConstructorUsedError;
+  String get error => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FailureCopyWith<T, Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;

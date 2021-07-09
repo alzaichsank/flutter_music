@@ -8,7 +8,7 @@ part of 'rest_api_service.dart';
 
 class _RestApiService implements RestApiService {
   _RestApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://157.175.85.34/';
+    baseUrl ??= 'https://itunes.apple.com/';
   }
 
   final Dio _dio;
@@ -17,10 +17,7 @@ class _RestApiService implements RestApiService {
 
   @override
   Future<ListResponse> searchMusicByArtist(
-      {required term,
-      required media,
-      required entity,
-      required artistTerm}) async {
+      term, media, entity, artistTerm) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'term': term,

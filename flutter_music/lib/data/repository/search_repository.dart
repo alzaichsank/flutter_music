@@ -6,11 +6,7 @@ mixin _SearchRepository {
   Future<ApiResult<SearchResponse>> searchMovie(String keywordArtist) async {
     try {
       return await _apiService
-          .searchMusicByArtist(
-              term: keywordArtist,
-              media: "music",
-              entity: "song",
-              artistTerm: "artistTerm")
+          .searchMusicByArtist(keywordArtist, "music", "song", "artistTerm")
           .then(
             (value) => value.data != null
                 ? ApiResult.success(

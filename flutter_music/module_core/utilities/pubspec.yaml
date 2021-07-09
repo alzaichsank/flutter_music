@@ -4,21 +4,22 @@ version: 1.0.0
 author: alza
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   manifest:
     path: ../manifest
-  intl: ^0.16.1
-  rxdart: ^0.24.1
+  intl: ^0.17.0
+  rxdart: ^0.27.1
   google_fonts: ^2.1.0
-  device_info: ^1.0.0
-  package_info: ^0.4.3+2
-  permission_handler: ^5.0.1+1
-  connectivity: ^2.0.2
-  fluttertoast: ^7.1.6
+  device_info: ^2.0.2
+  package_info: ^2.0.2
+  permission_handler: ^8.1.2
+  connectivity: ^3.0.6
+  fluttertoast: ^8.0.7
+  json_serializable: ^4.1.3
+  json_annotation:
 
 flutter:

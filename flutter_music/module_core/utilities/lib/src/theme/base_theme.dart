@@ -7,9 +7,9 @@ class _ThemePick extends InheritedWidget {
   final ThemePickState data;
 
   _ThemePick({
-    this.data,
-    Key key,
-    @required Widget child,
+    required this.data,
+    Key? key,
+    required Widget child,
   }) : super(key: key, child: child);
 
   @override
@@ -23,29 +23,29 @@ class ThemePick extends StatefulWidget {
   final ThemePickerOption initialThemeKey;
 
   const ThemePick({
-    Key key,
-    this.initialThemeKey,
-    @required this.child,
+    Key? key,
+    required this.initialThemeKey,
+    required this.child,
   }) : super(key: key);
 
   @override
   ThemePickState createState() => ThemePickState();
 
   static ThemeData of(BuildContext context) {
-    _ThemePick inherited =
+    _ThemePick? inherited =
     context.dependOnInheritedWidgetOfExactType<_ThemePick>();
-    return inherited.data.theme;
+    return inherited!.data.theme;
   }
 
   static ThemePickState instanceOf(BuildContext context) {
-    _ThemePick inherited =
+    _ThemePick? inherited =
         context.dependOnInheritedWidgetOfExactType<_ThemePick>();
-    return inherited.data;
+    return inherited!.data;
   }
 }
 
 class ThemePickState extends State<ThemePick> {
-  ThemeData _theme;
+  late ThemeData _theme;
 
   ThemeData get theme => _theme;
 

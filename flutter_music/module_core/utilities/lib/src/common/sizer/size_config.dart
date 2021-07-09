@@ -9,18 +9,18 @@ class SizeConfig {
 
   SizeConfig._internal();
 
-  static MediaQueryData _mediaQueryData;
-  static double _screenWidth;
-  static double _screenHeight;
-  static double _blockSizeHorizontal;
-  static double _blockSizeVertical;
-  static double _safeAreaHorizontal;
-  static double _safeAreaVertical;
-  static double _safeBlockHorizontal;
-  static double _safeBlockVertical;
-  static double _refHeight;
-  static double _refWidth;
-  static DeviceType _deviceType;
+  static late MediaQueryData _mediaQueryData;
+  static late double _screenWidth;
+  static late double _screenHeight;
+  static late double _blockSizeHorizontal;
+  static late double _blockSizeVertical;
+  static late double _safeAreaHorizontal;
+  static late double _safeAreaVertical;
+  static late double _safeBlockHorizontal;
+  static late double _safeBlockVertical;
+  static late double _refHeight;
+  static late double _refWidth;
+  static late DeviceType _deviceType;
 
   void init(BuildContext context, BoxConstraints constraints,
       Orientation orientation) {

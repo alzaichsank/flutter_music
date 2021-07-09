@@ -1,14 +1,11 @@
 library manifest;
 
-export 'src/assets_generated_manifest.dart' show AssetManifest;
-export 'src/assets_generated_manifest.dart' show FontManifest;
-export 'src/assets_generated_manifest.dart' show ImageManifest;
+export 'src/assets_manifest.dart' show ImageAssets;
 export 'src/build_config.dart' show BuildConfig;
 export 'src/color_manifest.dart' show ColorManifest;
 export 'src/dimension_manifest.dart' show DimensionsManifest;
 export 'src/error_manifest.dart' show ErrorManifest;
 export 'src/shape_style_manifest.dart' show ShapeStylesManifest;
-export 'src/string/string_i18n_constant_manifest.dart' show StringManifest;
 export 'src/text_style_manifest.dart' show TextStylesManifest;
 
 /**

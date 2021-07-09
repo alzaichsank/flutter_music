@@ -22,7 +22,6 @@ class PermissionHelper {
     final status = await permission.status;
     return [
       PermissionStatus.denied,
-      PermissionStatus.undetermined,
       PermissionStatus.permanentlyDenied
     ].contains(status);
   }
@@ -30,7 +29,7 @@ class PermissionHelper {
   Future<bool> shouldShowRationale(Permission permission) async {
     final status = await permission.status;
     final shouldShowRationale = await permission.shouldShowRequestRationale;
-    return [PermissionStatus.undetermined, PermissionStatus.permanentlyDenied]
+    return [PermissionStatus.permanentlyDenied]
             .contains(status) ||
         shouldShowRationale;
   }

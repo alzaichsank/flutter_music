@@ -94,7 +94,7 @@ class NetworkException with _$NetworkException {
           networkExceptions = NetworkException.unexpectedError();
         }
         return networkExceptions;
-      } on FormatException catch (e) {
+      } on FormatException {
         return NetworkException.formatException();
       } catch (_) {
         return NetworkException.unexpectedError();
@@ -126,13 +126,13 @@ class NetworkException with _$NetworkException {
       requestCancelled: () {
         errorMessage = "Request Cancelled";
       },
-      internalServerError: (int serverCode, int errorCode, String message) {
+      internalServerError: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Internal Server Error";
       },
       notFound: (int serverCode, int errorCode, String message) {
         errorMessage = message;
       },
-      serviceUnavailable: (int serverCode, int errorCode, String message) {
+      serviceUnavailable: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Service unavailable";
       },
       methodNotAllowed: () {
@@ -141,19 +141,19 @@ class NetworkException with _$NetworkException {
       badRequest: () {
         errorMessage = "Bad request";
       },
-      unauthorisedRequest: (int serverCode, int errorCode, String message) {
+      unauthorisedRequest: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Unauthorised request";
       },
-      serverValidationError: (String message) {
+      serverValidationError: (String? message) {
         errorMessage = message ?? "Error server validation";
       },
-      requestTimeout: (int serverCode, int errorCode, String message) {
+      requestTimeout: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Connection request timeout";
       },
       noInternetConnection: () {
         errorMessage = "No internet connection";
       },
-      conflict: (int serverCode, int errorCode, String message) {
+      conflict: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Error due to a conflict";
       },
       sendTimeout: () {
@@ -174,10 +174,10 @@ class NetworkException with _$NetworkException {
       connectionTimeout: () {
         errorMessage = "Connection timeout";
       },
-      unProcessableEntity: (int serverCode, int errorCode, String message) {
+      unProcessableEntity: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Error unable process entity";
       },
-      formValidationError: (int serverCode, int errorCode, String message) {
+      formValidationError: (int serverCode, int errorCode, String? message) {
         errorMessage = message ?? "Error form validation";
       },
       unexpectedError: () {

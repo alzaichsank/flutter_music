@@ -11,8 +11,8 @@ abstract class RestApiService {
 
   @GET("search")
   Future<ListResponse> searchMusicByArtist(
-      {@Query("term") String term,
+      @Query("term") String term,
       @Query("media") String media,
       @Query("entity") String entity,
-      @Query("artistTerm") String artistTerm});
+      @Query("artistTerm") String artistTerm);
 }

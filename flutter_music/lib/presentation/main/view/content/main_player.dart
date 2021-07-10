@@ -32,6 +32,7 @@ class _MainPlayerState extends State<_MainPlayer> {
       _controller =
           VideoPlayerController.network(state.data[state.position].previewUrl)
             ..initialize();
+      _controller.play();
     } else if (state.isShowPlayer &&
         (state.statePlayer is MainPauseMusic ||
             state.statePlayer is MainPlayMusic)) {

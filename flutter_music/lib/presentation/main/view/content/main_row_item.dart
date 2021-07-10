@@ -53,7 +53,11 @@ Widget _buildItemRow(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(child: _buildImage(item, context, state)),
-                Expanded(child: _buildDetail(item))
+                Expanded(
+                  child: _buildDetail(item),
+                ),
+                if (state.position == index)
+                  Center(child: Icon(Icons.graphic_eq_outlined)),
               ],
             ),
           ),

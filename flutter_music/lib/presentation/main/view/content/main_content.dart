@@ -100,10 +100,11 @@ class _MainBodyState extends State<_MainBody> {
           child: Stack(
             children: [
               Positioned(child: _buildBody(state, music)),
-              Positioned(
-                  child: new Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: _MainPlayer())),
+              if (state.isShowPlayer)
+                Positioned(
+                    child: new Align(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: _MainPlayer())),
             ],
           ),
         ),

@@ -44,21 +44,25 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       yield* _mapEventToMainEvent();
     } else if (event is MainPlayMusic) {
       positions = event.position;
+      print("play song ${_events[positions].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.playMusic(),
           isShowPlayer: true,
           position: positions);
     } else if (event is MainPauseMusic) {
+      print("pause song ${_events[positions].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.pauseMusic(),
           isShowPlayer: true,
           position: positions);
     } else if (event is MainNextMusic) {
+      print("next song ${_events[positions+1].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.nextMusic(),
           isShowPlayer: true,
           position: positions <= _events.length ? positions + 1 : positions);
     } else if (event is MainPrevMusic) {
+      print("prev song ${_events[positions-1].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.prevMusic(),
           isShowPlayer: true,

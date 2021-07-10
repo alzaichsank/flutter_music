@@ -56,7 +56,7 @@ Widget _buildItemRow(
                 Expanded(
                   child: _buildDetail(item),
                 ),
-                if (state.position == index)
+                if (state.position == index && state.isShowPlayer)
                   Center(child: Icon(Icons.graphic_eq_outlined)),
               ],
             ),

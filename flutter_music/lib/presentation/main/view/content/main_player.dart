@@ -14,9 +14,7 @@ class _MainPlayerState extends State<_MainPlayer> {
   void initState() {
     super.initState();
     /**use dummy first**/
-    _controller = VideoPlayerController.network(
-        "https://www.pond5.com/royalty-free-music/item/113205966-casual-urban-90s-chart-ready-chill-upbeat-hip-hop")
-      ..initialize();
+    _controller = VideoPlayerController.network("https://dummy")..initialize();
     _controller.pause();
   }
 
@@ -28,15 +26,10 @@ class _MainPlayerState extends State<_MainPlayer> {
   }
 
   Widget _containerPlayer(BuildContext context, MainState state) {
-    if (state.isShowPlayer) {
-      _controller =
-          VideoPlayerController.network(state.data[state.position].previewUrl)
-            ..initialize();
+    if (state.isShowPlayer && !state.isPause && !state.isAlreadyInit) {
+      setTrack(state.data[state.position].previewUrl);
+    }else if(state.isAlreadyInit && !state.isPause){
       _controller.play();
-    } else if (state.isShowPlayer &&
-        (state.statePlayer is MainPauseMusic ||
-            state.statePlayer is MainPlayMusic)) {
-      _controller.value.isPlaying ? _controller.pause() : _controller.play();
     }
 
     return Container(
@@ -52,14 +45,10 @@ class _MainPlayerState extends State<_MainPlayer> {
           ),
           IconButton(
               icon: Icon(
-                _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                state.isPause ? Icons.pause : Icons.play_arrow,
               ),
               onPressed: () {
-                _controller.value.isPlaying
-                    ? context.read<MainBloc>().add(MainPauseMusic())
-                    : context
-                        .read<MainBloc>()
-                        .add(MainPlayMusic(state.position));
+                checkIsPause();
               }),
           IconButton(
               icon: Icon(Icons.skip_next),
@@ -68,5 +57,44 @@ class _MainPlayerState extends State<_MainPlayer> {
         ],
       ),
     );
+  }
+
+  /*
+  * Set music for the audio player.
+  * */
+  setTrack(trackUrl) async {
+    _controller = VideoPlayerController.network(trackUrl);
+    await _controller.initialize();
+
+    play();
+    _controller.addListener(() {
+      if (!_controller.value.isPlaying &&
+          (_controller.value.duration == _controller.value.position)) {
+        // context.read<MainBloc>().add(MainNextMusic());
+      }
+    });
+  }
+
+
+  /*
+  * Plays music for the audio player.
+  * */
+  play() {
+    if ((_controller.value.duration == _controller.value.position)) {
+      _controller.seekTo(Duration(seconds: 0));
+    }
+    _controller.play();
+  }
+
+  /*
+  * check for pause music the audio player.
+  * */
+  checkIsPause() {
+    if (_controller.value.isPlaying) {
+      context.read<MainBloc>().add(MainPauseMusic(true));
+      _controller.pause();
+    } else {
+      context.read<MainBloc>().add(MainPauseMusic(false));
+    }
   }
 }

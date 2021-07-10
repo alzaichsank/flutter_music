@@ -30,10 +30,12 @@ class MainPlayMusic extends MainEvent {
 }
 
 class MainPauseMusic extends MainEvent {
-  const MainPauseMusic();
+  const MainPauseMusic(this.isPlaying);
+
+  final bool isPlaying;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isPlaying];
 }
 
 class MainPrevMusic extends MainEvent {

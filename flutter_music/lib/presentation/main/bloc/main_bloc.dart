@@ -43,30 +43,58 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       _events.clear();
       yield* _mapEventToMainEvent();
     } else if (event is MainPlayMusic) {
+      yield state.copyWith(
+          statePlayer: PlayerBlocState.playerShowMusicLoading());
       positions = event.position;
       print("play song ${_events[positions].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.playMusic(),
           isShowPlayer: true,
+          isAlreadyInit: false,
+          isPause: false,
           position: positions);
     } else if (event is MainPauseMusic) {
-      print("pause song ${_events[positions].songTitle}");
       yield state.copyWith(
-          statePlayer: PlayerBlocState.pauseMusic(),
-          isShowPlayer: true,
-          position: positions);
+          statePlayer: PlayerBlocState.playerShowMusicLoading());
+      if (event.isPlaying) {
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.pauseMusic(),
+            isPause: true,
+            isAlreadyInit: true);
+      } else {
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.pauseMusic(),
+            isPause: false,
+            isAlreadyInit: true);
+      }
     } else if (event is MainNextMusic) {
-      print("next song ${_events[positions+1].songTitle}");
-      yield state.copyWith(
-          statePlayer: PlayerBlocState.nextMusic(),
-          isShowPlayer: true,
-          position: positions <= _events.length ? positions + 1 : positions);
+      if(positions < _events.length-1) {
+        var newPosition = positions < _events.length-1
+            ? positions + 1
+            : positions;
+        positions = newPosition;
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.playerShowMusicLoading());
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.nextMusic(),
+            isShowPlayer: true,
+            isAlreadyInit: false,
+            isPause: false,
+            position: newPosition);
+      }
     } else if (event is MainPrevMusic) {
-      print("prev song ${_events[positions-1].songTitle}");
-      yield state.copyWith(
-          statePlayer: PlayerBlocState.prevMusic(),
-          isShowPlayer: true,
-          position: positions > 0 ? positions - 1 : positions);
+      if(positions != 0) {
+        var newPosition = positions > 0 ? positions - 1 : positions;
+        positions = newPosition;
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.playerShowMusicLoading());
+        yield state.copyWith(
+            statePlayer: PlayerBlocState.prevMusic(),
+            isShowPlayer: true,
+            isAlreadyInit: false,
+            isPause: false,
+            position: newPosition);
+      }
     } else {
       yield state.copyWith(state: SearchBlocState.pureSearch());
     }
@@ -101,5 +129,4 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       },
     );
   }
-
 }

@@ -1,6 +1,6 @@
 part of '../main_view.dart';
 
-class _MainToolbar extends StatelessWidget {
+class MainToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainBloc, MainState>(

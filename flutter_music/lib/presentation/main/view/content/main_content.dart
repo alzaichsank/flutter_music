@@ -104,7 +104,7 @@ class _MainBodyState extends State<_MainBody> {
                 Positioned(
                     child: new Align(
                         alignment: FractionalOffset.bottomCenter,
-                        child: _MainPlayer())),
+                        child: MainPlayer())),
             ],
           ),
         ),

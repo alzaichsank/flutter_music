@@ -20,7 +20,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   ) : super(const MainState());
 
   final SearchMusicUseCase searchMusicUseCase;
-  final List<SearchData> _events = [];
+  final List<SearchData> eventItem = [];
   String keyword = "";
   int positions = 0;
 
@@ -40,13 +40,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       yield state.copyWith(state: SearchBlocState.pureSearch());
     } else if (event is MainQueryChanged) {
       keyword = event.query;
-      _events.clear();
+      eventItem.clear();
       yield* _mapEventToMainEvent();
     } else if (event is MainPlayMusic) {
       yield state.copyWith(
           statePlayer: PlayerBlocState.playerShowMusicLoading());
       positions = event.position;
-      print("play song ${_events[positions].songTitle}");
       yield state.copyWith(
           statePlayer: PlayerBlocState.playMusic(),
           isShowPlayer: true,
@@ -68,10 +67,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
             isAlreadyInit: true);
       }
     } else if (event is MainNextMusic) {
-      if(positions < _events.length-1) {
-        var newPosition = positions < _events.length-1
-            ? positions + 1
-            : positions;
+      if (positions < eventItem.length - 1) {
+        var newPosition =
+            positions < eventItem.length - 1 ? positions + 1 : positions;
         positions = newPosition;
         yield state.copyWith(
             statePlayer: PlayerBlocState.playerShowMusicLoading());
@@ -83,7 +81,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
             position: newPosition);
       }
     } else if (event is MainPrevMusic) {
-      if(positions != 0) {
+      if (positions != 0) {
         var newPosition = positions > 0 ? positions - 1 : positions;
         positions = newPosition;
         yield state.copyWith(
@@ -102,13 +100,13 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
   Stream<MainState> _mapEventToMainEvent() async* {
     MainState _onSucceed(List<SearchData> data) {
-      this._events.addAll(data);
-      if (_events.isEmpty) {
+      this.eventItem.addAll(data);
+      if (eventItem.isEmpty) {
         return state.copyWith(state: SearchBlocState.noInternetError());
       } else {
         return state.copyWith(
           state: SearchBlocState.updateMusic(),
-          data: _events,
+          data: eventItem,
         );
       }
     }

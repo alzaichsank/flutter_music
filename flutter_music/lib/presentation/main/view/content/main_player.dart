@@ -1,13 +1,13 @@
 part of '../main_view.dart';
 
-class _MainPlayer extends StatefulWidget {
-  _MainPlayer({Key? key}) : super(key: key);
+class MainPlayer extends StatefulWidget {
+  MainPlayer({Key? key}) : super(key: key);
 
   @override
-  _MainPlayerState createState() => _MainPlayerState();
+  MainPlayerState createState() => MainPlayerState();
 }
 
-class _MainPlayerState extends State<_MainPlayer> {
+class MainPlayerState extends State<MainPlayer> {
   late VideoPlayerController _controller;
 
   @override

@@ -41,7 +41,7 @@ class _MainViewState extends State<MainView> {
         }
       },
       child: BackgroundStack(
-        toolbar: _MainToolbar(),
+        toolbar: MainToolbar(),
         regularBuilder: RegularBackgroundBuilder(
           topHeight: 0,
           backgroundColor: ColorManifest.GREY_COLOR,

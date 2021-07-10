@@ -9,6 +9,7 @@ import 'package:flutter_music/presentation/common/widget/text_field.dart';
 import 'package:flutter_music/presentation/common/widget/toolbar_holder.dart';
 import 'package:manifest/manifest.dart';
 import 'package:utilities/utilities.dart';
+import 'package:video_player/video_player.dart';
 
 import '../main.dart';
 
@@ -17,6 +18,8 @@ part 'content/main_content.dart';
 part 'content/main_row_item.dart';
 
 part 'content/main_toolbar.dart';
+
+part 'content/main_player.dart';
 
 class MainView extends StatefulWidget {
   MainView({Key? key}) : super(key: key);

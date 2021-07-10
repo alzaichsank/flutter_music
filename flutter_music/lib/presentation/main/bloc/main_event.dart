@@ -23,35 +23,29 @@ class MainQueryChanged extends MainEvent {
 class MainPlayMusic extends MainEvent {
   const MainPlayMusic(this.position);
 
-  final num position;
+  final int position;
 
   @override
   List<Object> get props => [position];
 }
 
 class MainPauseMusic extends MainEvent {
-  const MainPauseMusic(this.position);
-
-  final num position;
+  const MainPauseMusic();
 
   @override
-  List<Object> get props => [position];
+  List<Object> get props => [];
 }
 
 class MainPrevMusic extends MainEvent {
-  const MainPrevMusic(this.position);
-
-  final num position;
+  const MainPrevMusic();
 
   @override
-  List<Object> get props => [position];
+  List<Object> get props => [];
 }
 
 class MainNextMusic extends MainEvent {
-  const MainNextMusic(this.position);
-
-  final num position;
+  const MainNextMusic();
 
   @override
-  List<Object> get props => [position];
+  List<Object> get props => [];
 }

@@ -22,6 +22,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   final SearchMusicUseCase searchMusicUseCase;
   final List<SearchData> _events = [];
   String keyword = "";
+  int positions = 0;
 
   @override
   Stream<Transition<MainEvent, MainState>> transformEvents(
@@ -41,6 +42,27 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       keyword = event.query;
       _events.clear();
       yield* _mapEventToMainEvent();
+    } else if (event is MainPlayMusic) {
+      positions = event.position;
+      yield state.copyWith(
+          statePlayer: PlayerBlocState.playMusic(),
+          isShowPlayer: true,
+          position: positions);
+    } else if (event is MainPauseMusic) {
+      yield state.copyWith(
+          statePlayer: PlayerBlocState.pauseMusic(),
+          isShowPlayer: true,
+          position: positions);
+    } else if (event is MainNextMusic) {
+      yield state.copyWith(
+          statePlayer: PlayerBlocState.nextMusic(),
+          isShowPlayer: true,
+          position: positions <= _events.length ? positions + 1 : positions);
+    } else if (event is MainPrevMusic) {
+      yield state.copyWith(
+          statePlayer: PlayerBlocState.prevMusic(),
+          isShowPlayer: true,
+          position: positions > 0 ? positions - 1 : positions);
     } else {
       yield state.copyWith(state: SearchBlocState.pureSearch());
     }
@@ -49,7 +71,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   Stream<MainState> _mapEventToMainEvent() async* {
     MainState _onSucceed(List<SearchData> data) {
       this._events.addAll(data);
-      print("cek response succes ${_events.length}");
       if (_events.isEmpty) {
         return state.copyWith(state: SearchBlocState.noInternetError());
       } else {
@@ -65,7 +86,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     }
 
     yield state.copyWith(state: SearchBlocState.showMusicLoading());
-    print("cek response before lood ${state.state}");
     final result = await searchMusicUseCase.execute(keyword);
 
     yield* result.when(
@@ -78,5 +98,4 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     );
   }
 
-//endregion
 }

@@ -48,7 +48,7 @@ Widget _buildItemRow(
         child: Material(
           color: HexColor.toColor(ColorManifest.WHITE_COLOR),
           child: InkWell(
-            // TODO : TRIGER MUSIC
+            onTap: () => context.read<MainBloc>().add(MainPlayMusic(index)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,14 +69,13 @@ Container _buildImage(
   MainState state,
 ) {
   return Container(
-    margin: EdgeInsets.only(
-        left: DimensionsManifest.UNIT_24),
+    margin: EdgeInsets.only(left: DimensionsManifest.UNIT_24),
     height: DimensionsManifest.UNIT_15.h,
     child: AspectRatio(
       aspectRatio: 1 / 1,
       child: Stack(
         children: [
-          _buildImagePreview(item.artworkUrl ?? ""),
+          _buildImagePreview(item.artworkUrl),
         ],
       ),
     ),
@@ -105,7 +104,7 @@ LayoutBuilder _buildImagePreview(String image) {
 Widget _buildDetail(SearchData item) {
   Text _buildTitle() {
     return Text(
-      item.songTitle ?? "-",
+      item.songTitle,
       textAlign: TextAlign.left,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
@@ -117,7 +116,7 @@ Widget _buildDetail(SearchData item) {
 
   Text _buildArtistName() {
     return Text(
-      item.artistName ?? "-",
+      item.artistName,
       maxLines: 1,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
@@ -129,7 +128,7 @@ Widget _buildDetail(SearchData item) {
 
   Text _buildAlbumName() {
     return Text(
-      item.albumName ?? "-",
+      item.albumName,
       maxLines: 1,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,

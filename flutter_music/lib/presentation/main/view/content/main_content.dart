@@ -30,7 +30,6 @@ class _MainBodyState extends State<_MainBody> {
       return _buildNegativeState();
     } else if (state.state is UpdateMusic) {
       final music = state.data;
-      print("cek response music data ${music}");
       return _buildPositiveState(
         totalWidth,
         totalHeight,
@@ -96,10 +95,16 @@ class _MainBodyState extends State<_MainBody> {
       child: Container(
         width: SizeConfig().getScreenWidth(),
         height: DimensionsManifest.UNIT_80.h,
-        child: ScrollConfiguration(
-          behavior: HideableGlowBehavior(),
-          child: SingleChildScrollView(
-            child: _buildBody(state, music),
+        child: Container(
+          height: double.maxFinite,
+          child: Stack(
+            children: [
+              Positioned(child: _buildBody(state, music)),
+              Positioned(
+                  child: new Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: _MainPlayer())),
+            ],
           ),
         ),
       ),
@@ -157,7 +162,6 @@ class _MainBodyState extends State<_MainBody> {
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
-      physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: music == null ? 0 : music.length,
       itemBuilder: (BuildContext context, int index) {

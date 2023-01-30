@@ -35,3 +35,14 @@ Steps to build and deploy
 3. `flutter pub get`
 4. `flutter run`
 
+
+note for first run :
+
+`flutter packages pub run build_runner build`
+
+if conflict
+
+`flutter packages pub run build_runner build --delete-conflicting-outputs`
+
+All files will generated, you can just use it, cheers!
+
